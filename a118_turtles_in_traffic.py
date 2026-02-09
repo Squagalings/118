@@ -13,9 +13,11 @@ turtle_shapes = ["arrow", "turtle", "circle", "square", "triangle", "classic"]
 horiz_colors = ["red", "blue", "green", "orange", "purple", "gold"]
 vert_colors = ["darkred", "darkblue", "lime", "salmon", "indigo", "brown"]
 
+
 tloc = 50
 for s in turtle_shapes:
-    #making horizontal turtles(lined up vertically)
+
+    # turtles aligned vertically
     ht = trtl.Turtle(shape=s)
     horiz_turtles.append(ht)
     ht.penup()
@@ -23,8 +25,10 @@ for s in turtle_shapes:
     ht.fillcolor(new_color)
     ht.goto(-350, tloc)
     ht.setheading(0)
+    
+    
 
-    #making vertical turtles(lined up horizontally)
+    # turtles aligned horizontally
     vt = trtl.Turtle(shape=s)
     vert_turtles.append(vt)
     vt.penup()
@@ -35,11 +39,25 @@ for s in turtle_shapes:
 
     tloc += 50
 
-# TODO: move turtles across and down screen, stopping for collisions
+    
 
-for step in range(50):
-    ht.forward(step)
-    vt.forward(step)
+# todo: move turtles across and down screen, stopping for collisions
+
+while True:
+    for ht in horiz_turtles:
+        ht.forward(5)
+    for vt in vert_turtles:
+        vt.forward(5)
+
+    for ht in horiz_turtles:
+        for vt in vert_turtles:
+            distance = abs((ht.xcor()-vt.xcor())**2+(ht.ycor()-vt.ycor())**2)
+            if distance<=20:
+                ht.hideturtle()
+                vt.hideturtle()
+                vert_turtles.remove(vt)
+                horiz_turtles.remove(ht)
+
 
 
 wn = trtl.Screen()
